@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Video Games</title>
+   <style type="text/css">
+    button,
+    div,
+    form input {
+      margin: 10px;
+    }
+  </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Video Game Search</h1>
+
+      <div
+      id="buttons-view"></div>
+
+      <form id="game-form">
+        <label
+        for="game-input">Type a game</label>
+
+        <input type="text"
+        id="game-input"><br>
+
+        <input id="add-game"
+        type="submit"
+        value="Add a Game">
+      </form>
+
+   <div
+   id="images"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script
+    type="text/javascript">
+
+
+
+        var games = ["cod", "dbz", "cars", "transformers"];
+
+ function renderButtons() {
+
+   $("#buttons-view").empty();
+
+
+
+
+
+      //   $("#buttons-view").empty();
+      //
+      //
+      // for (var i = 0; i < games.length; i++)
+      // {
+      //
+      //   var a =
+      //   $("<button>");
+      //
+      //   a.addClass("game");
+      //
+      //   a.attr("data-name" , games[i]);
+      //
+      //   a.text(games[i]);
+      //
+      //   $("#buttons-view")
+      //   .append(a);
+      //
+      // }
+
+
+
+
+
+
+      for (var i = 0; i < games.length; i++)
+      {
+
+        var a =
+        $("<button>");
+
+        a.addClass("game");
+
+        a.attr("data-name" , games[i]);
+
+        a.text(games[i]);
+
+        $("#buttons-view").append(a);
+ console.log(a)
+}
+
+}
+$("#add-game").on("click", function(event)
+{
+ event.preventDefault();
+
+
+ var game =
+ $("#game-input").val().trim();
+
+
+games.push(game);
+
+renderButtons();
+
+});
+
+
+renderButtons();
+
+
+
+      //
+      // var imageUrl = gameName.data.image_original_url;
+      //
+      // var gameImage = $("<img>");
+      //
+      // // Setting the catImage src attribute to imageUrl
+      // gameImage.attr("src", imageUrl);
+      // gameImage.attr("alt", "game image");
+      //
+      // // Prepending the catImage to the images div
+      // $("#images").prepend(gameImage);
+
+
+      // });
+
+
+
+
+$(".game").on("click",function(){
+
+
+var gameChosen = $(this).data("name")
+
+var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=CMcLHeouaZQZnAVuJAJhiUxXwSZBaRHP&tag="+gameChosen;
+
+  $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+
+.done(function(gameName) {
+console.log(gameName)
+
+var imageUrl = gameName.data.image_original_url;
+
+var gameImage = $("<img>");
+
+//
+// if (results[i].rating !== "r" && results[i].rating !== "g") {
+//              // Creating a div with the class "item"
+//              var gifDiv = $("<div class='item'>");
+//              // Storing the result item's rating
+//              var rating = results[i].rating;
+//              // Creating a paragraph tag with the result item's rating
+//              var p = $("<p>").text("Rating: " + rating);
+//              // Creating an image tag
+//
+//             personImage.attr("src", results[i].images.fixed_height.url);
+//
+// gifDiv.append(p);
+// gifDiv.append(person);
+gameImage.attr("src", imageUrl);
+gameImage.attr("alt", "game image");
+
+
+$("#images").prepend(gameImage);
+
+$(this).on("click", function() {
+  // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+  var state = $(this).attr("gameImage");
+  // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+  // Then, set the image's data-state to animate
+  // Else set src to the data-still value
+  if (state === "animate") {
+    $(this).attr("src", $(this).attr("gameImage"));
+    $(this).attr("data-state", "still");
+  } else {
+    $(this).attr("src", $(this).attr("gameImage"));
+    $(this).attr("data-state", "animate");
+  }
+});
+
+
+
+// if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+//              // Creating a div with the class "item"
+//              var gifDiv = $("<div class='item'>");
+//              // Storing the result item's rating
+//              var rating = results[i].rating;
+//              // Creating a paragraph tag with the result item's rating
+//              var p = $("<p>").text("Rating: " + rating);
+//              // Creating an image tag
+//              var personImage = $("<img>");
+//              // Giving the image tag an src attribute of a proprty pulled off the
+//              // result item
+//
+//              // Appending the paragraph and personImage we created to the "gifDiv" div we created
+//              gifDiv.append(p);
+//              gifDiv.append(personImage);
+//              // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
+//              $("#gifs-appear-here").prepend(gifDiv);
+// });
+
+
+});
+
+});
+
+
+
+
+</script>
+</div>
+</body>
+</html>
